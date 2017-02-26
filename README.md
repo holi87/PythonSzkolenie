@@ -1,1 +1,1 @@
-# PythonSzkolenie
+# repo dla szkolenia z pythona online

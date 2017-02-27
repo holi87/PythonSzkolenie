@@ -7,9 +7,9 @@ __author__ = "Grzegorz Holak"
 # init new contact
 
 class Contact:
-    def __init__(self, first_name, last_name, email, mobile_phone, middle_name="", nick="", title="", company=""
-                 , address="", home_phone="", work_phone="", fax="", email2="", email3="", homepage=""
-                 , birthday_year="", ann_year="", address2="", home_phone2="", notes="", birthday_day=0
+    def __init__(self, first_name, last_name, email, mobile_phone, middle_name=None, nick=None, title=None, company=None
+                 , address=None, home_phone=None, work_phone=None, fax=None, email2=None, email3=None, homepage=None
+                 , birthday_year=None, ann_year=None, address2=None, home_phone2=None, notes=None, birthday_day=0
                  , birthday_month=0, ann_month=0, ann_day=0):
         self.first_name = first_name
         self.last_name = last_name

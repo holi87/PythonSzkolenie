@@ -33,6 +33,6 @@ class Contact:
         self.notes = notes
         # these are for options but in script need add 2 to this, dunno why, but it is working OK.
         self.birthday_day = birthday_day + 2
-        self.birthday_month = birthday_month + 2
-        self.ann_month = ann_month + 2
+        self.birthday_month = birthday_month + 1
+        self.ann_month = ann_month + 1
         self.ann_day = ann_day + 2

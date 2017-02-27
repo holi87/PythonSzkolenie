@@ -39,3 +39,6 @@ class GroupHelper:
         # submit delete group button
         wd.find_element_by_name("delete").click()
         self.open_groups_page()
+
+    def modify_first_group(self):
+        pass

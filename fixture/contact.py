@@ -91,3 +91,16 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         # as return to home page
         self.app.open_home_page()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # no need to go into any page as contacts can be deleted from home page
+        wd.find_element_by_name("selected[]").click()
+        # now for me easier is use Xpath so make xpath for del button
+        wd.find_element_by_xpath('//*[@value="Usuń"]').click()
+        # as written in homework - i am using method switch to alert
+        wd.switch_to_alert().accept()
+        self.app.open_home_page()
+
+    def modify_first_contact(self):
+        pass

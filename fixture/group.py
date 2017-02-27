@@ -12,22 +12,16 @@ class GroupHelper:
 
     def create(self, group):
         wd = self.app.wd
-        # open group page
         self.open_groups_page()
-        # init group creation
         wd.find_element_by_name("new").click()
-        # fill group form
         self.fill_group_form(group)
-        # submit group creation
         wd.find_element_by_name("submit").click()
         self.open_groups_page()  # as return to groups page
 
     def delete_first_group(self):
         wd = self.app.wd
-        # open group page
         self.open_groups_page()
         self.select_first_group()
-        # submit delete group button
         wd.find_element_by_name("delete").click()
         self.open_groups_page()
 

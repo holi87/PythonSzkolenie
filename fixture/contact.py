@@ -6,9 +6,6 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    # OK, now it looks much better - I am not doing same with group fixture as on videos it isn't, maybe later
-    # it will be better.
-
     def create_without_photo(self, contact):
         wd = self.app.wd
         # go to contact creator
@@ -86,11 +83,8 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        # no need to go into any page as contacts can be deleted from home page
         wd.find_element_by_name("selected[]").click()
-        # now for me easier is use Xpath so make xpath for del button
         wd.find_element_by_xpath('//*[@value="Usuń"]').click()
-        # as written in homework - i am using method switch to alert
         wd.switch_to_alert().accept()
         self.app.open_home_page()
 
@@ -100,7 +94,6 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@src="icons/pencil.png"]').click()
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
-        # as return to home page
         self.app.open_home_page()
 
     def count(self):

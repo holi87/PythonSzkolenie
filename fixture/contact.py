@@ -103,3 +103,6 @@ class ContactHelper:
         # as return to home page
         self.app.open_home_page()
 
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))

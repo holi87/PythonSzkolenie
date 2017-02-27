@@ -17,17 +17,18 @@ class test_add_contact(unittest.TestCase):
     
     def test_test_add_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_new_contact_without_photo(wd, Contact(first_name="imie", last_name="nazwisko", mobile_phone="12123"
                                                           , email="email@email.dt", birthday_day=1, birthday_month=1))
-        self.open_home_page(wd) # as return to home page
         self.logout(wd)
 
     def open_home_page(self, wd):
         wd.get("http://localhost:8080/addressbook/")
 
     def login(self, wd, username, password):
+        # open home page
+        self.open_home_page(wd)
+        # fill login form
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -38,6 +39,7 @@ class test_add_contact(unittest.TestCase):
 
     def create_new_contact_without_photo(self, wd, contact):
 
+        # go to contact creator
         wd.find_element_by_link_text("nowy wpis").click()
         # fill contact form
         wd.find_element_by_name("firstname").click()
@@ -114,6 +116,8 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("notes").send_keys(contact.notes)
         # these xpaths are not good enough - need to correct it later
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        # as return to home page
+        self.open_home_page(wd)
 
     def logout(self, wd):
         wd.find_element_by_link_text("Wyloguj się").click()

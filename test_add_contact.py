@@ -18,7 +18,7 @@ class test_add_contact(unittest.TestCase):
     def test_test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd)
+        self.login(wd, username="admin", password="secret")
         self.create_new_contact_without_photo(wd, Contact(first_name="imie", last_name="nazwisko", mobile_phone="12123"
                                                           , email="email@email.dt", birthday_day="19"
                                                           , birthday_month='1'))
@@ -28,7 +28,7 @@ class test_add_contact(unittest.TestCase):
     def open_home_page(self, wd):
         wd.get("http://localhost:8080/addressbook/")
 
-    def login(self, wd, username="admin", password="secret"):
+    def login(self, wd, username, password):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)

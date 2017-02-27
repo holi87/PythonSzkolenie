@@ -6,8 +6,10 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    # should make it better to read but have no idea how now - before task 5.
-
+    # should make it better to read but have no idea how now - before task 7.
+    # maybe should I make methods for important think and less important
+    # like contact_name (first, middle, last, email, phone)
+    # rest ? I have no idea.
     def create_without_photo(self, contact):
         wd = self.app.wd
         # go to contact creator

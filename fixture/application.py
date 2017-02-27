@@ -5,6 +5,7 @@ from fixture.contact import ContactHelper
 
 __author__ = "Grzegorz Holak"
 
+
 class Application:
 
     def __init__(self):

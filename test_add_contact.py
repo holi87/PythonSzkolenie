@@ -20,8 +20,7 @@ class test_add_contact(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_new_contact_without_photo(wd, Contact(first_name="imie", last_name="nazwisko", mobile_phone="12123"
-                                                          , email="email@email.dt", birthday_day="19"
-                                                          , birthday_month='1'))
+                                                          , email="email@email.dt", birthday_day=1, birthday_month=1))
         self.open_home_page(wd) # as return to home page
         self.logout(wd)
 
@@ -88,24 +87,16 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        # these xpaths are not good enough - need to correct it later - and this part not working.
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option['%s']" % contact.birthday_day)\
-                .is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option['%s']" % contact.birthday_day).click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option['%s']" % contact.birthday_month)\
-                .is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option['%s']" % contact.birthday_month)\
-                .click()
+        # these xpaths are not good enough - need to correct it later
+        wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%d]" % contact.birthday_day).click()
+        wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%d]" % contact.birthday_month).click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.birthday_year)
-        # these xpaths are not good enough - need to correct it later - this part not working
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option['%s']" % contact.ann_month)\
-                .is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option['%s']" % contact.ann_month).click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option['%s']" % contact.ann_day)\
-                .is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option['%s']" % contact.ann_day).click()
+        # these xpaths are not good enough - need to correct it later
+
+        wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option[%d]" % contact.ann_month).click()
+        wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[%d]" % contact.ann_day).click()
         # selecting group - commented to leave it as is
         # if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[0]").is_selected():
         #     wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[0]").click()

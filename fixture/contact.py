@@ -26,7 +26,7 @@ class ContactHelper:
         self.select_group()
         self.fill_additional_info(contact)
         # save contact
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        wd.find_element_by_name("submit").click()
         # as return to home page
         self.app.open_home_page()
 
@@ -41,6 +41,9 @@ class ContactHelper:
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
         wd.find_element_by_name("company").send_keys(contact.company)
+        wd.find_element_by_name("title").click()
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(contact.title)
 
     def fill_name_info(self, contact):
         wd = self.app.wd
@@ -56,9 +59,6 @@ class ContactHelper:
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(contact.nick)
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(contact.title)
 
     def fill_phone_info(self, contact):
         wd = self.app.wd
@@ -93,7 +93,7 @@ class ContactHelper:
     def select_group(self):
         # selecting group - commented to leave it as is
         # wd = self.app.wd
-        # wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[0]").click()
+        # wd.find_element_by_xpath('//*[@name="new_group"]/option[0]').click()
         pass
 
     def fill_additional_info(self, contact):
@@ -119,9 +119,8 @@ class ContactHelper:
 
     def fill_birthday(self, contact):
         wd = self.app.wd
-        # these xpaths are not good enough - need to correct it later
-        wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%d]" % contact.birthday_day).click()
-        wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%d]" % contact.birthday_month).click()
+        wd.find_element_by_xpath('//*[@name="bday"]/option[%d]' % contact.birthday_day).click()
+        wd.find_element_by_xpath('//*[@name="bmonth"]/option[%d]' % contact.birthday_month).click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.birthday_year)
@@ -150,7 +149,6 @@ class ContactHelper:
         self.fill_birthday(contact)
         self.fill_anniversary(contact)
 
-        self.select_group()
         self.fill_additional_info(contact)
         wd.find_element_by_name("update").click()
         # as return to home page

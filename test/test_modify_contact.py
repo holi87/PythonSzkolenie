@@ -16,5 +16,6 @@ def test_modify_first_name(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(first_name="jakies losowe", last_name="nazwisko siakie", email="email@maryna.xt"
                                    , mobile_phone="1241241"))
+    # need to make none only for these, as in model.class only these four are required - keep it simple :)
     app.contact.modify_first_contact_without_photo(Contact(first_name="noweImie", last_name=None
                                                            , mobile_phone=None, email=None))

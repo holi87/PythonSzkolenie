@@ -1,10 +1,12 @@
+import fixture.basic
+
 __author__ = "Grzegorz Holak"
 
 
-class ContactHelper:
+class ContactHelper(fixture.basic.BasicHelper):
 
     def __init__(self, app):
-        self.app = app
+        super(ContactHelper, self).__init__(app)
 
     def create_without_photo(self, contact):
         wd = self.app.wd
@@ -14,7 +16,7 @@ class ContactHelper:
         # save contact
         wd.find_element_by_name("submit").click()
         # as return to home page
-        self.app.open_home_page()
+        self.open_home_page()
 
     def fill_contact_form_without_photo(self, contact):
         self.fill_name_info(contact)
@@ -29,33 +31,33 @@ class ContactHelper:
 
     def fill_address(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("address", contact.address)
+        self.change_field_value("address", contact.address)
 
     def fill_company_info(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("company", contact.company)
-        self.app.change_field_value("title", contact.title)
+        self.change_field_value("company", contact.company)
+        self.change_field_value("title", contact.title)
 
     def fill_name_info(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("firstname", contact.first_name)
-        self.app.change_field_value("middlename", contact.middle_name)
-        self.app.change_field_value("lastname", contact.last_name)
-        self.app.change_field_value("nickname", contact.nick)
+        self.change_field_value("firstname", contact.first_name)
+        self.change_field_value("middlename", contact.middle_name)
+        self.change_field_value("lastname", contact.last_name)
+        self.change_field_value("nickname", contact.nick)
 
     def fill_phone_info(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("home", contact.home_phone)
-        self.app.change_field_value("mobile", contact.mobile_phone)
-        self.app.change_field_value("work", contact.work_phone)
-        self.app.change_field_value("fax", contact.fax)
+        self.change_field_value("home", contact.home_phone)
+        self.change_field_value("mobile", contact.mobile_phone)
+        self.change_field_value("work", contact.work_phone)
+        self.change_field_value("fax", contact.fax)
 
     def fill_online_info(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("email", contact.email)
-        self.app.change_field_value("email2", contact.email2)
-        self.app.change_field_value("email3", contact.email3)
-        self.app.change_field_value("homepage", contact.homepage)
+        self.change_field_value("email", contact.email)
+        self.change_field_value("email2", contact.email2)
+        self.change_field_value("email3", contact.email3)
+        self.change_field_value("homepage", contact.homepage)
 
     def select_group(self):
         # selecting group - commented to leave it as is
@@ -65,28 +67,28 @@ class ContactHelper:
 
     def fill_additional_info(self, contact):
         wd = self.app.wd
-        self.app.change_field_value("address2", contact.address2)
-        self.app.change_field_value("phone2", contact.home_phone2)
-        self.app.change_field_value("notes", contact.notes)
+        self.change_field_value("address2", contact.address2)
+        self.change_field_value("phone2", contact.home_phone2)
+        self.change_field_value("notes", contact.notes)
 
     def fill_anniversary(self, contact):
         wd = self.app.wd
         wd.find_element_by_xpath('//*[@name="aday"]/option[%d]' % contact.ann_day).click()
         wd.find_element_by_xpath('//*[@name="amonth"]/option[%d]' % contact.ann_month).click()
-        self.app.change_field_value("ayear", contact.ann_year)
+        self.change_field_value("ayear", contact.ann_year)
 
     def fill_birthday(self, contact):
         wd = self.app.wd
         wd.find_element_by_xpath('//*[@name="bday"]/option[%d]' % contact.birthday_day).click()
         wd.find_element_by_xpath('//*[@name="bmonth"]/option[%d]' % contact.birthday_month).click()
-        self.app.change_field_value("byear", contact.birthday_year)
+        self.change_field_value("byear", contact.birthday_year)
 
     def delete_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath('//*[@value="Usuń"]').click()
         wd.switch_to_alert().accept()
-        self.app.open_home_page()
+        self.open_home_page()
 
     def modify_first_contact_without_photo(self, contact):
         wd = self.app.wd
@@ -94,10 +96,10 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@src="icons/pencil.png"]').click()
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
-        self.app.open_home_page()
+        self.open_home_page()
 
     def count(self):
         wd = self.app.wd
         # just to be sure that we are on home page
-        self.app.open_home_page()
+        self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))

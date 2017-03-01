@@ -1,15 +1,16 @@
+import fixture.basic
 __author__ = "Grzegorz Holak"
 
 
-class SessionHelper:
+class SessionHelper(fixture.basic.BasicHelper):
 
     def __init__(self, app):
-        self.app = app
+        super(SessionHelper, self).__init__(app)
 
     def login(self, username, password):
         wd = self.app.wd
         # open home page
-        self.app.open_home_page()
+        self.open_home_page()
         # fill login form
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()

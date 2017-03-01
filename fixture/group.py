@@ -1,10 +1,11 @@
+import fixture.basic
 __author__ = "Grzegorz Holak"
 
 
-class GroupHelper:
+class GroupHelper(fixture.basic.BasicHelper):
 
     def __init__(self, app):
-        self.app = app
+        super(GroupHelper, self).__init__(app)
 
     def open_groups_page(self):
         wd = self.app.wd
@@ -44,9 +45,9 @@ class GroupHelper:
 
     def fill_group_form(self, group):
         wd = self.app.wd
-        self.app.change_field_value("group_name", group.name)
-        self.app.change_field_value("group_header", group.header)
-        self.app.change_field_value("group_footer", group.footer)
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
 
     def count(self):
         wd = self.app.wd

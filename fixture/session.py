@@ -1,4 +1,5 @@
 import fixture.basic
+
 __author__ = "Grzegorz Holak"
 
 
@@ -33,7 +34,7 @@ class SessionHelper(fixture.basic.BasicHelper):
         wd = self.app.wd
         return len(wd.find_elements_by_link_text("Wyloguj się")) > 0
 
-    def is_logged_in_as(self,username):
+    def is_logged_in_as(self, username):
         wd = self.app.wd
         return wd.find_element_by_xpath('//*[@id="top"]/form/b').text == "(" + username + ")"
 

@@ -16,7 +16,7 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
-        self.base = BasicHelper(self)
+        self.basic = BasicHelper(self)
 
     def destroy(self):
         self.wd.quit()

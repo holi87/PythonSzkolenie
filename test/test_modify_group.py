@@ -13,13 +13,11 @@ __author__ = "Grzegorz Holak"
 
 
 def test_modify_group_name(app):
-    old_groups = app.group.get_group_list()
-
-    group = Group(name="nowaNazwaGrupy")
-    group.group_id = old_groups[0].group_id
-
     if app.group.count() == 0:
         app.group.create(Group(name="nazwa"))
+    old_groups = app.group.get_group_list()
+    group = Group(name="nowaNazwaGrupy")
+    group.group_id = old_groups[0].group_id
     app.group.modify_first_group(group)
     assert len(old_groups) == app.group.count()
     new_groups = app.group.get_group_list()

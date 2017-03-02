@@ -84,22 +84,28 @@ class ContactHelper(fixture.basic.BasicHelper):
         wd.find_element_by_xpath('//*[@name="bmonth"]/option[%d]' % contact.birthday_month).click()
         self.change_field_value("byear", contact.birthday_year)
 
-    def delete_first_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath('//*[@value="Usuń"]').click()
         wd.switch_to_alert().accept()
         self.open_home_page()
         self.contact_cache = None
 
-    def modify_first_contact_without_photo(self, contact):
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def modify_contact_without_photo_by_index(self, index, contact):
         wd = self.app.wd
         # go to first contact editor
-        wd.find_element_by_xpath('//*[@src="icons/pencil.png"]').click()
+        wd.find_elements_by_xpath('//*[@src="icons/pencil.png"]')[index].click()
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
         self.contact_cache = None
+
+    def modify_first_contact_without_photo(self, contact):
+        self.modify_contact_without_photo_by_index(0, contact)
 
     def count(self):
         wd = self.app.wd

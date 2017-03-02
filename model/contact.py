@@ -1,16 +1,17 @@
+from sys import maxsize
 __author__ = "Grzegorz Holak"
 
 
-# I decided to make first name, last name, mobile phone and email without default value, as rest can be blank
-# only these 4 I decided to must have in each contact, so I changed order of parameters in method to make
+# I decided to make first name and last name without default value, as rest can be blank
+# only these 2 I decided to must have in each contact, so I changed order of parameters in method to make
 # it easier. After all we could test more possibilities, fill some parts and left rest etc.
 # init new contact
 
 class Contact:
-    def __init__(self, first_name, last_name, email, mobile_phone, middle_name=None, nick=None, title=None, company=None
+    def __init__(self, first_name, last_name, email=None, mobile_phone=None, middle_name=None, nick=None, title=None, company=None
                  , address=None, home_phone=None, work_phone=None, fax=None, email2=None, email3=None, homepage=None
                  , birthday_year=None, ann_year=None, address2=None, home_phone2=None, notes=None, birthday_day=0
-                 , birthday_month=0, ann_month=0, ann_day=0):
+                 , birthday_month=0, ann_month=0, ann_day=0, contact_id=None):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -36,3 +37,17 @@ class Contact:
         self.birthday_month = birthday_month + 1
         self.ann_month = ann_month + 1
         self.ann_day = ann_day + 2
+        self.contact_id = contact_id
+
+    def __repr__(self):
+        return "%s:%s %s" % (self.contact_id, self.first_name, self.last_name)
+
+    def __eq__(self, other):
+        return (self.contact_id is None or other.contact_id is None or self.contact_id == other.contact_id)\
+               and self.first_name == other.first_name and self.last_name == other.last_name
+
+    def id_or_max(self):
+        if self.contact_id:
+            return int(self.contact_id)
+        else:
+            return maxsize

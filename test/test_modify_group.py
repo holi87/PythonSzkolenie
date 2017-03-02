@@ -1,7 +1,8 @@
 from model.group import Group
 __author__ = "Grzegorz Holak"
 
-
+# commented because no need to use it for now.
+#
 # def test_modify_group_header(app):
 #     old_groups = app.group.get_group_list()
 #     if app.group.count() == 0:

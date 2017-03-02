@@ -1,5 +1,5 @@
 import fixture.basic
-
+from model.contact import Contact
 __author__ = "Grzegorz Holak"
 
 
@@ -103,3 +103,20 @@ class ContactHelper(fixture.basic.BasicHelper):
         # just to be sure that we are on home page
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    # this function is really strange, I am not sure is it correct way for now.
+    # I wanted make for each loop more user friendly - looping by elements of table, but it is not so easy.
+    # Xpaths are from this "not perfect" ones, but no alternative.
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        i = 2  # because first element is in row nr = 2
+        for row in wd.find_elements_by_name("selected[]"):
+            # i-th row td 2nd and 3rd
+            first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
+            last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
+            contact_id = row.get_attribute("value")
+            contacts.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id))
+            i += 1  # making iterator +1 for next row in loop
+        return contacts

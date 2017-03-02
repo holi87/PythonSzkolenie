@@ -114,8 +114,8 @@ class ContactHelper(fixture.basic.BasicHelper):
         i = 2  # because first element is in row nr = 2
         for row in wd.find_elements_by_name("selected[]"):
             # i-th row td 2nd and 3rd
-            first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
-            last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
+            last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
+            first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
             contact_id = row.get_attribute("value")
             contacts.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id))
             i += 1  # making iterator +1 for next row in loop

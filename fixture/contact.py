@@ -17,6 +17,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         wd.find_element_by_name("submit").click()
         # as return to home page
         self.open_home_page()
+        self.contact_cache = None
 
     def fill_contact_form_without_photo(self, contact):
         self.fill_name_info(contact)
@@ -89,6 +90,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         wd.find_element_by_xpath('//*[@value="Usuń"]').click()
         wd.switch_to_alert().accept()
         self.open_home_page()
+        self.contact_cache = None
 
     def modify_first_contact_without_photo(self, contact):
         wd = self.app.wd
@@ -97,6 +99,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
@@ -107,16 +110,20 @@ class ContactHelper(fixture.basic.BasicHelper):
     # this function is really strange, I am not sure is it correct way for now.
     # I wanted make for each loop more user friendly - looping by elements of table, but it is not so easy.
     # Xpaths are from this "not perfect" ones, but no alternative.
+
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        contacts = []
-        i = 2  # because first element is in row nr = 2
-        for row in wd.find_elements_by_name("selected[]"):
-            # i-th row td 2nd and 3rd
-            last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
-            first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
-            contact_id = row.get_attribute("value")
-            contacts.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id))
-            i += 1  # making iterator +1 for next row in loop
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.contact_cache = []
+            i = 2  # because first element is in row nr = 2
+            for row in wd.find_elements_by_name("selected[]"):
+                # i-th row td 2nd and 3rd
+                last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
+                first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
+                contact_id = row.get_attribute("value")
+                self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id))
+                i += 1  # making iterator +1 for next row in loop
+        return list(self.contact_cache)

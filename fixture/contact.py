@@ -124,12 +124,11 @@ class ContactHelper(fixture.basic.BasicHelper):
             wd = self.app.wd
             self.open_home_page()
             self.contact_cache = []
-            i = 2  # because first element is in row nr = 2
-            for row in wd.find_elements_by_name("selected[]"):
-                # i-th row td 2nd and 3rd
-                last_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[2]" % i).text
-                first_name = wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[%d]/td[3]" % i).text
-                contact_id = row.get_attribute("value")
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements_by_tag_name("td")
+                last_name = cells[1].text
+                first_name = cells[2].text
+                contact_id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id))
-                i += 1  # making iterator +1 for next row in loop
+
         return list(self.contact_cache)

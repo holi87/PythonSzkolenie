@@ -131,11 +131,12 @@ class ContactHelper(fixture.basic.BasicHelper):
                 last_name = cells[1].text
                 first_name = cells[2].text
                 all_phones = cells[5].text
-                all_address = cells[3].text
+                address = cells[3].text
                 all_mails = cells[4].text
                 contact_id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id
-                                                  , all_phones_from_home_page=all_phones))
+                                                  , all_phones_from_home_page=all_phones, address=address
+                                                  , all_emails_from_home_page=all_mails))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
@@ -162,8 +163,13 @@ class ContactHelper(fixture.basic.BasicHelper):
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         contact_id = wd.find_element_by_name("id").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(first_name=firstname, last_name=lastname, contact_id=contact_id, mobile_phone=mobilephone
-                       , home_phone=homephone, work_phone=workphone, home_phone2=secondaryphone)
+                       , home_phone=homephone, work_phone=workphone, home_phone2=secondaryphone, address=address
+                       , email=email, email2=email2, email3=email3)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
@@ -179,5 +185,10 @@ class ContactHelper(fixture.basic.BasicHelper):
     def merge_phones_like_on_home_page(self, contact):
         return "\n".join(filter(lambda x: x != ""
                                 , (map(lambda x: self.clear(x), filter(lambda x: x is not None
-                                                                  , [contact.home_phone, contact.work_phone
-                                                                      , contact.mobile_phone, contact.home_phone2])))))
+                                                                  , [contact.home_phone, contact.mobile_phone
+                                                                      , contact.work_phone, contact.home_phone2])))))
+
+    def merge_emails_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != ""
+                                , (map(lambda x: self.clear(x), filter(lambda x: x is not None
+                                                                  , [contact.email, contact.email2, contact.email3])))))

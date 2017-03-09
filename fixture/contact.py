@@ -1,4 +1,5 @@
 import fixture.basic
+import re
 from model.contact import Contact
 __author__ = "Grzegorz Holak"
 
@@ -162,3 +163,14 @@ class ContactHelper(fixture.basic.BasicHelper):
         contact_id = wd.find_element_by_name("id").get_attribute("value")
         return Contact(first_name=firstname, last_name=lastname, contact_id=contact_id, mobile_phone=mobilephone
                        , home_phone=homephone, work_phone=workphone, home_phone2=secondaryphone)
+
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        home_phone = re.search("H: (.*)", text).group(1)
+        mobile_phone = re.search("M: (.*)", text).group(1)
+        work_phone = re.search("W: (.*)", text).group(1)
+        home_phone2 = re.search("P: (.*)", text).group(1)
+        return Contact(first_name=None, last_name=None, mobile_phone=mobile_phone, home_phone=home_phone
+                       , work_phone=work_phone, home_phone2=home_phone2)

@@ -10,7 +10,8 @@ def test_modify_some_contact(app):
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
 
-    contact = Contact(first_name="XMODIFYNAME", last_name="XMODIFYSURNAME")
+    contact = Contact(first_name="imie", last_name="nazwisko", mobile_phone="321", home_phone2="31"
+                      , work_phone="53", home_phone="111")
     contact.contact_id = old_contacts[index].contact_id
 
     app.contact.modify_contact_without_photo_by_index(index, contact)

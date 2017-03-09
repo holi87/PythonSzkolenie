@@ -5,7 +5,7 @@ __author__ = "Grzegorz Holak"
 
 def test_modify_some_contact(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(first_name="imieDodane", last_name="NazwiskoDodane"))
+        app.contact.create_without_photo(Contact(first_name="imieDodane", last_name="NazwiskoDodane"))
 
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
@@ -26,7 +26,7 @@ def test_modify_some_contact(app):
 
 def test_modify_some_contact_first_name(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(first_name="imieDodane", last_name="NazwiskoDodane"))
+        app.contact.create_without_photo(Contact(first_name="imieDodane", last_name="NazwiskoDodane"))
 
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))

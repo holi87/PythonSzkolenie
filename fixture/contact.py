@@ -17,7 +17,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         # save contact
         wd.find_element_by_name("submit").click()
         # as return to home page
-        self.open_home_page()
+        self.app.open_home_page()
         self.contact_cache = None
 
     def fill_contact_form_without_photo(self, contact):
@@ -90,7 +90,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath('//*[@value="Usuń"]').click()
         wd.switch_to_alert().accept()
-        self.open_home_page()
+        self.app.open_home_page()
         self.contact_cache = None
 
     def delete_first_contact(self):
@@ -103,7 +103,7 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.open_contact_to_edit_by_index(index)
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
-        self.open_home_page()
+        self.app.open_home_page()
         self.contact_cache = None
 
     def modify_first_contact_without_photo(self, contact):
@@ -112,19 +112,15 @@ class ContactHelper(fixture.basic.BasicHelper):
     def count(self):
         wd = self.app.wd
         # just to be sure that we are on home page
-        self.open_home_page()
+        self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
-
-    # this function is really strange, I am not sure is it correct way for now.
-    # I wanted make for each loop more user friendly - looping by elements of table, but it is not so easy.
-    # Xpaths are from this "not perfect" ones, but no alternative.
 
     contact_cache = None
 
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            self.open_home_page()
+            self.app.open_home_page()
             self.contact_cache = []
             for row in wd.find_elements_by_name("entry"):
                 cells = row.find_elements_by_tag_name("td")
@@ -141,14 +137,14 @@ class ContactHelper(fixture.basic.BasicHelper):
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
-        self.open_home_page()
+        self.app.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
-        self.open_home_page()
+        self.app.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
@@ -192,3 +188,9 @@ class ContactHelper(fixture.basic.BasicHelper):
         return "\n".join(filter(lambda x: x != ""
                                 , (map(lambda x: self.clear(x), filter(lambda x: x is not None
                                                                   , [contact.email, contact.email2, contact.email3])))))
+
+    def merge_adress_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != ""
+                                , (map(lambda x: self.clear(x), filter(lambda x: x is not None
+                                                                  , [contact.home_phone, contact.mobile_phone
+                                                                      , contact.work_phone, contact.home_phone2])))))

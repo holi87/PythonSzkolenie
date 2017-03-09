@@ -7,7 +7,7 @@ __author__ = "Grzegorz Holak"
 def test_contact_on_home_page(app):
     # when there is no contact - make one for test
     if app.contact.count() == 0:
-        app.contact.create(Contact(first_name="jakies losowe", last_name="nazwisko siakie", home_phone="12411+1"
+        app.contact.create_without_photo(Contact(first_name="jakies losowe", last_name="nazwisko siakie", home_phone="12411+1"
                                    , mobile_phone="1241241", email="email1@kda.as", email2="dasda@dad.ad"
                                    , address="""line1
                                    line2"""))

@@ -5,7 +5,7 @@ __author__ = "Grzegorz Holak"
 
 def test_del_first_contact(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(first_name="jakies losowe", last_name="nazwisko siakie", email="email@maryna.xt"
+        app.contact.create_without_photo(Contact(first_name="jakies losowe", last_name="nazwisko siakie", email="email@maryna.xt"
                                    , mobile_phone="1241241"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))

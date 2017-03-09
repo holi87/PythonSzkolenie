@@ -11,7 +11,7 @@ class SessionHelper(fixture.basic.BasicHelper):
     def login(self, username, password):
         wd = self.app.wd
         # open home page
-        self.open_home_page()
+        self.app.open_home_page()
         # fill login form
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()

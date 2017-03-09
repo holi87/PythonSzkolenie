@@ -130,11 +130,10 @@ class ContactHelper(fixture.basic.BasicHelper):
                 cells = row.find_elements_by_tag_name("td")
                 last_name = cells[1].text
                 first_name = cells[2].text
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
                 contact_id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id
-                                                  , home_phone=all_phones[0], mobile_phone=all_phones[1]
-                                                  , work_phone=all_phones[2], home_phone2=all_phones[3]))
+                                                  , all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):

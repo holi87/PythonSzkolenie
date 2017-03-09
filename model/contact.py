@@ -12,7 +12,8 @@ class Contact:
                  , company=None
                  , address=None, home_phone=None, work_phone=None, fax=None, email2=None, email3=None, homepage=None
                  , birthday_year=None, ann_year=None, address2=None, home_phone2=None, notes=None, birthday_day=0
-                 , birthday_month=0, ann_month=0, ann_day=0, contact_id=None, all_phones_from_home_page=None):
+                 , birthday_month=0, ann_month=0, ann_day=0, contact_id=None, all_phones_from_home_page=None
+                 , all_addresses_from_home_page=None, all_emails_from_home_page=None):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
@@ -40,6 +41,8 @@ class Contact:
         self.ann_day = ann_day + 2
         self.contact_id = contact_id
         self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_addresses_from_home_page = all_addresses_from_home_page
+        self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):
         return "%s:%s %s" % (self.contact_id, self.first_name, self.last_name)

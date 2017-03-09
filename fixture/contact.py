@@ -131,6 +131,8 @@ class ContactHelper(fixture.basic.BasicHelper):
                 last_name = cells[1].text
                 first_name = cells[2].text
                 all_phones = cells[5].text
+                all_address = cells[3].text
+                all_mails = cells[4].text
                 contact_id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 self.contact_cache.append(Contact(first_name=first_name, last_name=last_name, contact_id=contact_id
                                                   , all_phones_from_home_page=all_phones))
@@ -173,3 +175,9 @@ class ContactHelper(fixture.basic.BasicHelper):
         home_phone2 = re.search("P: (.*)", text).group(1)
         return Contact(first_name=None, last_name=None, mobile_phone=mobile_phone, home_phone=home_phone
                        , work_phone=work_phone, home_phone2=home_phone2)
+
+    def merge_phones_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != ""
+                                , (map(lambda x: self.clear(x), filter(lambda x: x is not None
+                                                                  , [contact.home_phone, contact.work_phone
+                                                                      , contact.mobile_phone, contact.home_phone2])))))

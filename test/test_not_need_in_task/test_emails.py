@@ -3,7 +3,7 @@ from random import randrange
 __author__ = "Grzegorz Holak"
 
 
-def test_names_on_home_page(app):
+def test_emails_on_home_page(app):
     # when there is no contact - make one for test
     if app.contact.count() == 0:
         app.contact.create(Contact(first_name="jakies losowe", last_name="nazwisko siakie", email="tata@tat.kl"

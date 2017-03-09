@@ -28,3 +28,4 @@ class BasicHelper:
 
     def clear(self, s):
         return re.sub("[() -]", "", s)
+

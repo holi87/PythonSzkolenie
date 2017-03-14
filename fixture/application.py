@@ -28,7 +28,6 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
-    #  + dorobic usera i haslo tak samo i wyslac commit.
 
     def open_home_page(self):
         wd = self.wd

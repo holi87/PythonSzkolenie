@@ -6,6 +6,7 @@ import jsonpickle
 import getopt
 import sys
 
+
 __author__ = "Grzegorz Holak"
 
 try:

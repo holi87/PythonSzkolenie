@@ -16,7 +16,7 @@ class BasicHelper:
 
     def is_valid(self):
         try:
-            self.app.wd.current_url()
+            self.app.wd.current_url
             return True
         except:
             return False

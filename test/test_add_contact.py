@@ -6,7 +6,7 @@ from model.contact import Contact
 
 
 def random_string(prefix, max_len):
-    symbols = string.ascii_letters + string.digits + " " * 10
+    symbols = string.ascii_letters + string.digits + " "
     #  + string.punctuation to not fail tests as we know that it is not working correctly with this chars
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(max_len))])
 

@@ -1,5 +1,5 @@
 from model.group import Group
-from timeit import timeit
+# from timeit import timeit
 __author__ = "Grzegorz Holak"
 
 

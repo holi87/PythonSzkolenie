@@ -71,6 +71,19 @@ class GroupHelper(fixture.basic.BasicHelper):
         self.open_groups_page()  # as return to groups page
         self.group_cache = None
 
+    def modify_group_by_id(self, g_id, new_group_data):
+        wd = self.app.wd
+        # open group page
+        self.open_groups_page()
+        # init group modify
+        self.select_group_by_id(g_id)
+        wd.find_element_by_name("edit").click()
+        self.fill_group_form(new_group_data)
+        # submit group creation
+        wd.find_element_by_name("update").click()
+        self.open_groups_page()  # as return to groups page
+        self.group_cache = None
+
     def fill_group_form(self, group):
         wd = self.app.wd
         self.change_field_value("group_name", group.name)
@@ -94,3 +107,6 @@ class GroupHelper(fixture.basic.BasicHelper):
                 group_id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, group_id=group_id))
         return list(self.group_cache)
+
+    def clean(self, group):
+        return Group(group_id=group.group_id, name=group.name.strip())

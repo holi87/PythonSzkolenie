@@ -116,6 +116,14 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.app.open_home_page()
         self.contact_cache = None
 
+    def modify_contact_without_photo_by_id(self, c_id, contact):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_id(c_id)
+        self.fill_contact_form_without_photo(contact)
+        wd.find_element_by_name("update").click()
+        self.app.open_home_page()
+        self.contact_cache = None
+
     def modify_first_contact_without_photo(self, contact):
         self.modify_contact_without_photo_by_index(0, contact)
 
@@ -151,6 +159,11 @@ class ContactHelper(fixture.basic.BasicHelper):
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
+
+    def open_contact_to_edit_by_id(self, c_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_xpath('//a[@href="edit.php?id=%s"]' % c_id).click()  # is it OK Xpath?
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd

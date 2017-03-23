@@ -32,9 +32,21 @@ class GroupHelper(fixture.basic.BasicHelper):
         self.open_groups_page()
         self.group_cache = None
 
+    def delete_group_by_id(self, g_id):
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_group_by_id(g_id)
+        wd.find_element_by_name("delete").click()
+        self.open_groups_page()
+        self.group_cache = None
+
     def select_group_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_group_by_id(self, g_id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % g_id).click()
 
     def delete_first_group(self):
         self.delete_group_by_index(0)

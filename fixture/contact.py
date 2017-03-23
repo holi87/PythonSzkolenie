@@ -93,13 +93,23 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.app.open_home_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, c_id):
+        wd = self.app.wd
+        self.select_contact_by_id(c_id)
+        wd.find_element_by_xpath('//*[@value="Usuń"]').click()
+        wd.switch_to_alert().accept()
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def select_contact_by_id(self, c_id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector('input[value="%s"]' % c_id).click()
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
     def modify_contact_without_photo_by_index(self, index, contact):
         wd = self.app.wd
-        # go to first contact editor
-        # wd.find_elements_by_xpath('//*[@src="icons/pencil.png"]')[index].click()
         self.open_contact_to_edit_by_index(index)
         self.fill_contact_form_without_photo(contact)
         wd.find_element_by_name("update").click()
@@ -194,3 +204,7 @@ class ContactHelper(fixture.basic.BasicHelper):
                                 , (map(lambda x: self.clear(x), filter(lambda x: x is not None
                                                                   , [contact.home_phone, contact.mobile_phone
                                                                       , contact.work_phone, contact.home_phone2])))))
+
+    def clean(self, contact):
+        return Contact(contact_id=contact.contact_id, first_name=contact.first_name.strip(),
+                       last_name=contact.last_name.strip())

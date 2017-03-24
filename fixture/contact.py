@@ -20,6 +20,26 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.app.open_home_page()
         self.contact_cache = None
 
+    def create_with_selected_group(self, contact, group_id):
+        wd = self.app.wd
+        # go to contact creator
+        wd.find_element_by_link_text("nowy wpis").click()
+        self.fill_contact_form_with_group(contact, group_id)
+
+        # save contact
+        wd.find_element_by_name("submit").click()
+        # as return to home page
+        self.app.open_home_page()
+        self.contact_cache = None
+
+    def fill_contact_form_with_group(self, contact, g_id):
+        self.fill_name_info(contact)
+        self.fill_company_info(contact)
+        self.fill_address(contact)
+        self.fill_phone_info(contact)
+        self.fill_online_info(contact)
+        self.select_group_by_group_id(g_id)
+
     def fill_contact_form_without_photo(self, contact):
         self.fill_name_info(contact)
         self.fill_company_info(contact)
@@ -28,7 +48,6 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.fill_online_info(contact)
         self.fill_birthday(contact)
         self.fill_anniversary(contact)
-        self.select_group()
         self.fill_additional_info(contact)
 
     def fill_address(self, contact):
@@ -61,11 +80,10 @@ class ContactHelper(fixture.basic.BasicHelper):
         self.change_field_value("email3", contact.email3)
         self.change_field_value("homepage", contact.homepage)
 
-    def select_group(self):
-        # selecting group - commented to leave it as is
-        # wd = self.app.wd
-        # wd.find_element_by_xpath('//*[@name="new_group"]/option[0]').click()
-        pass
+    def select_group_by_group_id(self, g_id):
+        wd = self.app.wd
+        wd.find_element_by_xpath('//select[@name="new_group"]/option[@value="%s"]' % g_id).click()
+
 
     def fill_additional_info(self, contact):
         wd = self.app.wd

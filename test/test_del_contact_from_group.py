@@ -10,7 +10,13 @@ def test_del_contact_from_group(app, orm):
         app.group.create(Group(name="nazwa"))
     groups_list = orm.get_group_list()
     group = random.choice(groups_list)
-    app.group.select_group_to_display_contacts_by_id(group.group_id)
+    print(orm.get_contacts_in_group(Group(group_id=group.group_id)))
+    print(group.group_id)
+    if len(orm.get_contacts_in_group(Group(group_id=group.group_id))) == 0:
+        app.contact.create_with_selected_group(Contact(first_name="imieDodane", last_name="NazwiskoDodane"),
+                                               group_id=group.group_id)
+        print(orm.get_contacts_in_group(Group(group_id=group.group_id)))
+    #app.group.select_group_to_display_contacts_by_id(group.group_id)  # todo
 
 
     """

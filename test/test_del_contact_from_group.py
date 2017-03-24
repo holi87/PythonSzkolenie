@@ -1,8 +1,17 @@
-
+from model.contact import Contact
+from model.group import Group
+import random
 __author__ = "Grzegorz Holak"
 
 
-def test_del_contact_from_group(app, db, check_ui):
+def test_del_contact_from_group(app, orm):
+    # checks if there is any group
+    if len(orm.get_group_list()) == 0:
+        app.group.create(Group(name="nazwa"))
+    groups_list = orm.get_group_list()
+    group = random.choice(groups_list)
+    app.group.select_group_to_display_contacts_by_id(group.group_id)
+
 
     """
     wejscie na strone glowna

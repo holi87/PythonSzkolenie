@@ -222,6 +222,3 @@ class ContactHelper(fixture.basic.BasicHelper):
         return Contact(contact_id=contact.contact_id, first_name=contact.first_name.strip(),
                        last_name=contact.last_name.strip())
 
-    def add_contact_to_group(self):
-        wd = self.app.wd
-        wd.find_element_by_xpath('//input[@name="add"]').click()

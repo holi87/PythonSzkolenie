@@ -19,7 +19,6 @@ def test_add_contact_to_group(app, orm):
     contact = random.choice(contacts_list)
 
     app.contact.select_contact_by_id(contact.contact_id)
-    app.group.select_group_to_add_contact_by_id(group.group_id)
-    app.contact.add_contact_to_group()
+    app.group.add_selected_contact_to_group_by_group_id_(group.group_id)
     # checks in db if this contact was added to group
     assert contact in orm.get_contacts_in_group(Group(group_id=group.group_id))

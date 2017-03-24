@@ -110,3 +110,7 @@ class GroupHelper(fixture.basic.BasicHelper):
 
     def clean(self, group):
         return Group(group_id=group.group_id, name=group.name.strip())
+
+    def select_group_to_add_contact_by_id(self, g_id):
+        wd = self.app.wd
+        wd.find_element_by_xpath('//select[@name="to_group"]/option[@value="%s"]' % g_id).click()

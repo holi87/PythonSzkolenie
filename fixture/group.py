@@ -115,3 +115,11 @@ class GroupHelper(fixture.basic.BasicHelper):
         wd = self.app.wd
         wd.find_element_by_xpath('//select[@name="to_group"]/option[@value="%s"]' % g_id).click()
         wd.find_element_by_xpath('//input[@name="add"]').click()
+
+    def select_group_by_id_to_display_contacts(self, g_id):
+        wd = self.app.wd
+        wd.find_element_by_xpath('//select[@name="group"]/option[@value="%s"]' % g_id).click()
+
+    def del_selected_contact_from_group(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath('//input[@name="remove"]').click()

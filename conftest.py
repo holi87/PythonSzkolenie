@@ -21,6 +21,7 @@ def load_config(file):
             target = json.load(f)
     return target
 
+
 @pytest.fixture
 def app(request):
     global fixture
